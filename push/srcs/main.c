@@ -42,8 +42,21 @@ static void	mini_tri(t_piles *piles)
 
 static void	medium_tri(t_piles *piles)
 {
-	while (!check_order(((t_piles *)piles)->pa))
+	t_pile	*pa;
+	int	pos;
+	
+	pos = 0;
+	while (!check_order(&piles->pa))
 		reverse_insert(piles);
+	while (piles->size_pb)
+		insert(piles);;
+	pa = piles->pa;
+	while (pa->next && pa->value < pa->next->value)
+	{
+		pos++;
+		pa = pa->next;
+	}
+	back_in_order(piles, pos);
 }
 
 int 		main(int ac, char **av)

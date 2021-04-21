@@ -50,7 +50,7 @@ void		insert(t_piles *piles)
 	pa = piles->pa;
 	to_put = find_place(&piles->pa, top_pb);
 	i = 0;
-	if (to_put < piles->size_pa / 2)
+	if (to_put < (piles->size_pa + 1) / 2)
 		while (i < to_put)
 		{
 			active_rotate(&piles->pa, 0);

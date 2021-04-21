@@ -12,7 +12,8 @@ PSRCNAMES	= 	main.c		\
 			triple_tri.c	\
 			utils.c		\
 			insert.c	\
-			medium_tri.c
+			double_switch.c \
+			reverse_insert.c
 
 PINC		= ./push/includes/
 PSRC 		= $(addprefix $(PDIR), $(PSRCNAMES))

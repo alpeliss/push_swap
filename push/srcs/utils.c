@@ -18,7 +18,6 @@ int	check_order(t_pile **a)
 	if (bad_order >= 2)
 		return (0);
 	return (1);
-
 }
 
 void	active_push(t_piles *piles, int dir)
@@ -39,18 +38,18 @@ void	active_push(t_piles *piles, int dir)
 	}		
 }
 
-void	active_rotate(t_pile **a, int dir)
+void	active_rotate(t_pile **p, int dir)
 {
-	rotate(a);
+	rotate(p);
 	if (!dir)
 		write(1, "ra\n", 3);
 	else
 		write(1, "rb\n", 3);
 }
 
-void	active_rev_rotate(t_pile **a, int dir)
+void	active_rev_rotate(t_pile **p, int dir)
 {
-	rev_rotate(a);
+	rev_rotate(p);
 	if (!dir)
 		write(1, "rra\n", 4);
 	else
