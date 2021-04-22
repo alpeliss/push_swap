@@ -44,13 +44,19 @@ static void	medium_tri(t_piles *piles)
 {
 	t_pile	*pa;
 	int	pos;
-	
-	pos = 0;
+	int	sep;
+
+	sep = find_sep(piles, piles->pa, 46);
 	while (!check_order(&piles->pa))
-		reverse_insert(piles);
+	{
+		if (!(piles->size_pa % 46))
+			sep = find_sep(piles, piles->pa, 46);	
+		reverse_insert(piles, sep);
+	}
 	while (piles->size_pb)
 		insert(piles);;
 	pa = piles->pa;
+	pos = 0;
 	while (pa->next && pa->value < pa->next->value)
 	{
 		pos++;
@@ -79,7 +85,7 @@ int 		main(int ac, char **av)
 		return (write(1, "ra\n", 3)); 
 	else if (piles->size_pa == 3)
 		triple_tri(piles);
-	else if (piles->size_pa == 45)
+	else if (piles->size_pa <= 5)
 		mini_tri(piles);
 	else
 		medium_tri(piles);

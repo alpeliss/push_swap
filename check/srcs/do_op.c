@@ -91,9 +91,9 @@ int	do_op(t_pile **pa, t_pile **pb)
 	
 	while ((lu = read(0, temp, 3)))
 	{
-		write(2, "\n", 1);
-		write(2, temp, lu);
-		write(2, "\n", 1);
+//		write(2, "\n", 1);
+//		write(2, temp, lu);
+//		write(2, "\n", 1);
 		if (lu < 3 || (temp[0] != 's' && temp[0] != 'p' && temp[0] != 'r'))
 			return (0);
 		if (temp[0] == 's' && !(handle_swap(pa, pb, temp)))
