@@ -1,6 +1,6 @@
 #include "checker.h"
 
-int 	handle_swap(t_pile **pa, t_pile **pb, char *temp)
+static int	handle_swap(t_pile **pa, t_pile **pb, char *temp)
 {
 	if (temp[1] == 'a' && temp[2] == '\n')
 	{
@@ -21,7 +21,7 @@ int 	handle_swap(t_pile **pa, t_pile **pb, char *temp)
 	return (0);
 }
 
-int 	handle_rot(t_pile **pa, t_pile **pb, char *temp)
+static int	handle_rot(t_pile **pa, t_pile **pb, char *temp)
 {
 	if (temp[1] == 'a' && temp[2] == '\n')
 	{
@@ -42,9 +42,9 @@ int 	handle_rot(t_pile **pa, t_pile **pb, char *temp)
 	return (0);
 }
 
-int 	handle_rev_rot(t_pile **pa, t_pile **pb, char *temp)
+static int	handle_rev_rot(t_pile **pa, t_pile **pb, char *temp)
 {
-	char t[1];
+	char	t[1];
 
 	read(0, t, 1);
 	if (t[0] != '\n')
@@ -68,7 +68,7 @@ int 	handle_rev_rot(t_pile **pa, t_pile **pb, char *temp)
 	return (0);
 }
 
-int 	handle_push(t_pile **pa, t_pile **pb, char *temp)
+static int	handle_push(t_pile **pa, t_pile **pb, char *temp)
 {	
 	if (temp[1] == 'a' && temp[2] == '\n')
 	{
@@ -87,26 +87,24 @@ int 	handle_push(t_pile **pa, t_pile **pb, char *temp)
 int	do_op(t_pile **pa, t_pile **pb)
 {
 	char	temp[3];
-	int	lu;
-	
-	while ((lu = read(0, temp, 3)))
+	int		lu;
+
+	lu = read(0, temp, 3);
+	while (lu)
 	{
-//		write(2, "\n", 1);
-//		write(2, temp, lu);
-//		write(2, "\n", 1);
 		if (lu < 3 || (temp[0] != 's' && temp[0] != 'p' && temp[0] != 'r'))
 			return (0);
 		if (temp[0] == 's' && !(handle_swap(pa, pb, temp)))
 			return (0);
-		else if (temp[0] == 'p'&& !(handle_push(pa, pb, temp)))
+		else if (temp[0] == 'p' && !(handle_push(pa, pb, temp)))
 			return (0);
 		else if (temp[0] == 'r' && temp[2] == '\n'
-				&& !(handle_rot(pa, pb, temp)))
+			&& !(handle_rot(pa, pb, temp)))
 			return (0);
-		else if (temp[0] == 'r' && temp[1] == 'r' && temp[2] != '\n' 
-				&& !(handle_rev_rot(pa, pb, temp)))
+		else if (temp[0] == 'r' && temp[1] == 'r' && temp[2] != '\n'
+			&& !(handle_rev_rot(pa, pb, temp)))
 			return (0);
-		print_piles(*pa, *pb);
+		lu = read(0, temp, 3);
 	}
 	return (1);
 }

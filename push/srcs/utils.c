@@ -2,7 +2,7 @@
 
 int	check_order(t_pile **a)
 {
-	int	bad_order;
+	int		bad_order;
 	t_pile	*pa;
 
 	pa = *a;
@@ -14,7 +14,7 @@ int	check_order(t_pile **a)
 		pa = pa->next;
 	}
 	if (pa->value > ((t_pile *)*a)->value)
-			bad_order++;
+		bad_order++;
 	if (bad_order >= 2)
 		return (0);
 	return (1);

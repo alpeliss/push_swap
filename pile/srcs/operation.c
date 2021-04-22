@@ -37,8 +37,8 @@ void	rotate(t_pile **a)
 		last = last->next;
 	last->next = tmp;
 	tmp->next = NULL;
-
 }
+
 void	rev_rotate(t_pile **a)
 {
 	t_pile	*tmp;

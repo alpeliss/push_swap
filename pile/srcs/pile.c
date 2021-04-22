@@ -1,6 +1,6 @@
 #include "pile.h"
 
-t_pile 		*free_pile(t_pile *a)
+t_pile	*free_pile(t_pile *a)
 {
 	t_pile	*tmp;
 
@@ -17,12 +17,12 @@ t_pile 		*free_pile(t_pile *a)
 	return (NULL);
 }
 
-t_pile		*add_back(t_pile *a, t_pile *b)
+t_pile	*add_back(t_pile *a, t_pile *b)
 {
 	t_pile	*tmp;
 
 	if (!a)
-		return(b);
+		return (b);
 	tmp = a;
 	while (tmp->next)
 		tmp = tmp->next;
@@ -30,7 +30,7 @@ t_pile		*add_back(t_pile *a, t_pile *b)
 	return (b);
 }
 
-int		check_doublons(t_pile *a)
+int	check_doublons(t_pile *a)
 {
 	t_pile	*tmp;
 
@@ -50,7 +50,7 @@ int		check_doublons(t_pile *a)
 	return (1);
 }
 
-void		print_piles(t_pile *a, t_pile *b)
+void	print_piles(t_pile *a, t_pile *b)
 {
 	while (a || b)
 	{
@@ -73,7 +73,7 @@ void		print_piles(t_pile *a, t_pile *b)
 	printf("      a            b     \n\n");
 }
 
-int		check_tri(t_pile *a, t_pile *b)
+int	check_tri(t_pile *a, t_pile *b)
 {
 	if (b)
 		return (0);

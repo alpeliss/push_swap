@@ -1,24 +1,25 @@
 #include "pile.h"
 
-t_pile		*make_pile(int nb)
+t_pile	*make_pile(int nb)
 {
 	t_pile	*a;
 
-	if (!(a = (t_pile *)malloc(sizeof (t_pile *))))
+	a = (t_pile *)malloc(sizeof (t_pile *));
+	if (!a)
 		return (NULL);
 	a->value = nb;
 	a->next = NULL;
 	return (a);
 }
 
-int		is_space(char c)
+int	is_space(char c)
 {
 	if (c && ((c >= 9 && c <= 13) || c == ' '))
 		return (1);
 	return (0);
 }
 
-t_pile		*ft_atop(char *str, int *i)
+t_pile	*ft_atop(char *str, int *i)
 {
 	long	tot;
 	long	m;
@@ -51,16 +52,19 @@ t_pile	*get_pile_a(char *str)
 {
 	t_pile	*pa;
 	t_pile	*next;
-	int	i;
+	int		i;
 
-	if (!(pa = (t_pile *)malloc(sizeof (t_pile *))))
+	pa = (t_pile *)malloc(sizeof (t_pile *));
+	if (!pa)
 		return (NULL);
 	i = 0;
-	if (!(pa = ft_atop(str, &i)))
+	pa = ft_atop(str, &i);
+	if (!pa)
 		return (free_pile(pa));
 	while (str[i])
 	{
-		if (!(next = ft_atop(str, &i)) && str[i])
+		next = ft_atop(str, &i);
+		if (!next && str[i])
 			return (free_pile(pa));
 		add_back(pa, next);
 	}
@@ -81,4 +85,3 @@ int	count_pile_size(t_pile *pile)
 	}
 	return (i);
 }
-

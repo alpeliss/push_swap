@@ -1,6 +1,5 @@
 #include "push_swap.h"
 
-
 static int	find_min(int a, int b, int c, int d)
 {
 	if (a <= b && a <= c && a <= d)
@@ -13,32 +12,32 @@ static int	find_min(int a, int b, int c, int d)
 		return (3);
 }
 
-void		handle_mov(t_piles *piles, int mov_a, int mov_b, int order)
+void	handle_mov(t_piles *piles, int mov_a, int mov_b, int order)
 {
 	if (order)
+	{
 		while (mov_a)
 		{
 			active_rotate(&piles->pa, 0);
 			mov_a--;
 		}
-	else
-		while (mov_a)
-		{
-			active_rev_rotate(&piles->pa, 0);
-			mov_a--;
-		}
-	if (!order)
-		while (mov_b)
-		{
-			active_rotate(&piles->pb, 1);
-			mov_b--;
-		}
-	else
 		while (mov_b)
 		{
 			active_rev_rotate(&piles->pb, 1);
 			mov_b--;
 		}
+		return ;
+	}
+	while (mov_a)
+	{
+		active_rev_rotate(&piles->pa, 0);
+		mov_a--;
+	}
+	while (mov_b)
+	{
+		active_rotate(&piles->pb, 1);
+		mov_b--;
+	}
 }
 
 static void	double_rotate(t_piles *piles, int mov_a, int mov_b)
@@ -85,7 +84,7 @@ static void	double_rev_rotate(t_piles *piles, int mov_a, int mov_b)
 	}
 }
 
-void		double_switch(t_piles *piles, int  pos_a, int  pos_b)
+void	double_switch(t_piles *piles, int pos_a, int pos_b)
 {
 	int	cas[4];
 	int	rev_a;
@@ -94,11 +93,15 @@ void		double_switch(t_piles *piles, int  pos_a, int  pos_b)
 
 	rev_a = (piles->size_pa - pos_a);
 	rev_b = (piles->size_pb - pos_b);
-	cas[0] = (pos_a > pos_b) ? pos_a : pos_b;
-	cas[1] = (rev_a > rev_b) ? rev_a : rev_b;
+	cas[0] = pos_b;
+	if (pos_a > pos_b)
+		cas[0] = pos_a;
+	cas[1] = rev_b;
+	if (rev_a > rev_b)
+		cas[1] = rev_a;
 	cas[2] = rev_a + pos_b;
 	cas[3] = pos_a + rev_b;
-	good_case= find_min(cas[0], cas[1], cas[2], cas[3]);
+	good_case = find_min(cas[0], cas[1], cas[2], cas[3]);
 	if (good_case == 0)
 		double_rotate(piles, pos_a, pos_b);
 	else if (good_case == 1)

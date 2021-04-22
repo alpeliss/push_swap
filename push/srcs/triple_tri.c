@@ -2,32 +2,31 @@
 
 static void	cas_un(t_pile **p)
 {
-		write(1, "sa\nra\n", 6);
-		swap(*p);
-		rotate(p);
+	write(1, "sa\nra\n", 6);
+	swap(*p);
+	rotate(p);
 }
 
 static void	cas_deux(t_pile **p)
 {
-		write(1, "ra\n", 3);
-		rotate(p);
+	write(1, "ra\n", 3);
+	rotate(p);
 }
 
 static void	cas_trois(t_pile **p)
 {
-		write(1, "sa\nrra\n", 7);
-		swap(*p);
-		rev_rotate(p);
+	write(1, "sa\nrra\n", 7);
+	swap(*p);
+	rev_rotate(p);
 }
 
 static void	cas_quatre(t_pile **p)
 {
-		write(1, "rra\n", 4);
-		rev_rotate(p);
+	write(1, "rra\n", 4);
+	rev_rotate(p);
 }
 
-
-void		triple_tri(t_piles *piles)
+void	triple_tri(t_piles *piles)
 {
 	int	top;
 	int	mid;

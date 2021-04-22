@@ -7,13 +7,14 @@ static int	find_min_val(t_pile *pa)
 	min_val = pa->value;
 	while (pa)
 	{
-		min_val = (pa->value < min_val) ? pa->value : min_val;
+		if (pa->value < min_val)
+			min_val = pa->value;
 		pa = pa->next;
 	}
 	return (min_val);
 }
 
-int		find_sep(t_piles *piles, t_pile *pa, int place)
+int	find_sep(t_piles *piles, t_pile *pa, int place)
 {
 	int	min_val;
 	int	next_min;
@@ -57,17 +58,16 @@ static	int	find_closer_mini(t_piles *piles, t_pile *pa, int *min_pos, int sep)
 		pa = pa->next;
 	}
 	return (min_val);
-
 }
 
 static int	reverse_find_place(t_pile **b, int val)
 {
-	int 	pos;
-	int 	pos_switch;
+	int		pos;
+	int		pos_switch;
 	t_pile	*pb;
 
 	pb = *b;
-	if (!pb || !pb->next)
+	if (!pb || !pb->next || (val > pb->value && val < find_last(*b)))
 		return (0);
 	pos_switch = 1;
 	while (pb->next && pb->value > pb->next->value)
@@ -78,8 +78,6 @@ static int	reverse_find_place(t_pile **b, int val)
 	if (!pb->next)
 		pos_switch = 0;
 	pb = *b;
-	if (val > pb->value && val < find_last(*b))
-		return (0);
 	pos = 1;
 	while (pb->next && (val > pb->value || val < pb->next->value))
 	{
@@ -91,24 +89,19 @@ static int	reverse_find_place(t_pile **b, int val)
 	return (pos);
 }
 
-void		reverse_insert(t_piles *piles, int sep)
+void	reverse_insert(t_piles *piles, int sep)
 {
 	t_pile	*pa;
-	int	min_pos;
-	int	min_val;
-	int	to_put;
-	int	*to_min_pos;
+	int		min_pos;
+	int		min_val;
+	int		to_put;
+	int		*to_min_pos;
 
 	pa = piles->pa;
 	min_pos = -1;
 	to_min_pos = &min_pos;
 	min_val = find_closer_mini(piles, pa, to_min_pos, sep);
-//	if (min_val == 8)
-//		print_piles(piles->pa, piles->pb);
 	to_put = reverse_find_place(&piles->pb, min_val);
 	double_switch(piles, min_pos, to_put);
 	active_push(piles, 0);
 }
-
-
-

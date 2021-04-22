@@ -2,23 +2,27 @@
 
 static void	back_in_order(t_piles *piles, int pos)
 {
-	if (pos < piles->size_pa/ 2)
+	if (pos < piles->size_pa / 2)
+	{
 		while (pos + 1)
 		{
 			active_rotate(&piles->pa, 0);
 			pos--;
 		}
+	}
 	else
+	{
 		while (pos < piles->size_pa - 1)
 		{
 			active_rev_rotate(&piles->pa, 0);
 			pos++;
 		}
+	}
 }
 
 static void	mini_tri(t_piles *piles)
 {	
-	int	pos;
+	int		pos;
 	t_pile	*pa;
 
 	pos = 0;
@@ -43,18 +47,20 @@ static void	mini_tri(t_piles *piles)
 static void	medium_tri(t_piles *piles)
 {
 	t_pile	*pa;
-	int	pos;
-	int	sep;
+	int		pos;
+	int		sep;
+	int		grp_size;
 
-	sep = find_sep(piles, piles->pa, 46);
+	grp_size = 1 + piles->size_pa / 11;
+	sep = find_sep(piles, piles->pa, grp_size);
 	while (!check_order(&piles->pa))
 	{
-		if (!(piles->size_pa % 46))
-			sep = find_sep(piles, piles->pa, 46);	
+		if (!(piles->size_pa % grp_size))
+			sep = find_sep(piles, piles->pa, grp_size);
 		reverse_insert(piles, sep);
 	}
 	while (piles->size_pb)
-		insert(piles);;
+		insert(piles);
 	pa = piles->pa;
 	pos = 0;
 	while (pa->next && pa->value < pa->next->value)
@@ -65,15 +71,16 @@ static void	medium_tri(t_piles *piles)
 	back_in_order(piles, pos);
 }
 
-int 		main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_piles	*piles;
 
 	piles = (t_piles *)malloc(sizeof(t_piles));
 	if (ac < 2)
-		return (write(1,"no pile a\n", 10));
+		return (write(1, "no pile a\n", 10));
 	piles->pb = NULL;
-	if (!(piles->pa = get_pile_a(av[1])))
+	piles->pa = get_pile_a(av[1]);
+	if (!piles->pa)
 		return (write(1, "Argument incorrect.\n", 20));
 	if (!(check_doublons(piles->pa)))
 		return (write(1, "Doublon dans la liste.\n", 23));
@@ -82,7 +89,7 @@ int 		main(int ac, char **av)
 	if (check_tri(piles->pa, piles->pb))
 		return (0);
 	else if (piles->size_pa == 2)
-		return (write(1, "ra\n", 3)); 
+		return (write(1, "ra\n", 3));
 	else if (piles->size_pa == 3)
 		triple_tri(piles);
 	else if (piles->size_pa <= 5)

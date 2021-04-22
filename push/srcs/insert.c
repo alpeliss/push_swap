@@ -11,8 +11,8 @@ int	find_last(t_pile *pa)
 
 int	find_place(t_pile **a, int val)
 {
-	int 	pos;
-	int 	pos_switch;
+	int		pos;
+	int		pos_switch;
 	t_pile	*pa;
 
 	pa = *a;
@@ -38,29 +38,30 @@ int	find_place(t_pile **a, int val)
 	return (pos);
 }
 
-void		insert(t_piles *piles)
+void	insert(t_piles *piles)
 {
-	int	top_pb;
-	int	to_put;
-	int	i;
-	t_pile	*pa;
+	int		top_pb;
+	int		to_put;
+	int		i;
 
-	to_put = 0;
 	top_pb = piles->pb->value;
-	pa = piles->pa;
 	to_put = find_place(&piles->pa, top_pb);
 	i = 0;
 	if (to_put < (piles->size_pa + 1) / 2)
+	{
 		while (i < to_put)
 		{
 			active_rotate(&piles->pa, 0);
 			i++;
 		}
+	}
 	else
+	{
 		while (i < piles->size_pa - to_put)
 		{
 			active_rev_rotate(&piles->pa, 0);
 			i++;
 		}
+	}
 	active_push(piles, 1);
 }
